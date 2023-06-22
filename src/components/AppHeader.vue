@@ -15,7 +15,6 @@ export default {
      .red, .yellow, .green{
         width: 2rem;
         height: 2rem;
-        background-color: red;
         border-radius: 50%;
         border: 3px solid rgb(255, 255, 255);
         margin: 0.4rem;

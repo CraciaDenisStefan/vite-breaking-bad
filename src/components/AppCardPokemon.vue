@@ -6,7 +6,7 @@ export default {
 }
 </script>
 <template >
-        <div class="rounded  p-3" :class="unPokemon.type1 === 'Fire' ?'bg_fire': unPokemon.type1 === 'Grass' ?'bg_grass': unPokemon.type1 === 'Water' ?'bg_water' : ''" >
+        <div class="rounded  p-3 card_pokemon" :class="unPokemon.type1 === 'Fire' ?'bg_fire': unPokemon.type1 === 'Grass' ?'bg_grass': unPokemon.type1 === 'Water' ?'bg_water' : ''" >
             <img :src="unPokemon.imageUrl" alt="">
             <div>{{ unPokemon.number }}</div>
             <div class="fw-bolder">{{ unPokemon.name }}</div>
@@ -14,6 +14,12 @@ export default {
         </div>
 </template>
 <style lang="scss" scoped>
+.card_pokemon{
+    cursor: pointer;
+    &:hover{
+        filter: brightness(110%);
+    }
+}
 img{
     width: 60%;
     border-radius:50%;
