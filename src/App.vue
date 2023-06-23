@@ -3,12 +3,14 @@ import axios from 'axios';
 
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
+import AppFilterPokemon from './components/AppFilterPokemon.vue';
 
 import {store} from './store.js';
 export default{
     components:{
       AppHeader,
       AppMain,
+      AppFilterPokemon,
     },
     data(){
         return{
@@ -16,19 +18,39 @@ export default{
         }
       },
     mounted(){
-      axios.get(store.apiUrl).then((response)=>{
+      this.filterPokedex();
+    },
+  
+    methods:{
+
+      
+      filterPokedex(){ 
+
+
+        store.myUrl = store.apiUrl;
+
+        if (store.typePokemon !== '') {
+        myUrl = + `&eq[type1]= ${store.typePokemon}`
+        }
+
+
+        axios.get(store.myUrl).then((response)=>{
         store.pokemons=response.data.docs
         store.loading = false
       })
-    },
-    
+      }
+    }
 
   }
 </script>
 
 <template>
 <div>
-  <AppHeader/>
+  <div class="container d-flex">
+    <AppHeader/>
+    <AppFilterPokemon @filterPokemon="filterPokedex"/>
+  </div>
+  
   <AppMain/>
 </div>
 </template>
