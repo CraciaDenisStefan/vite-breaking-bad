@@ -30,7 +30,7 @@ export default{
         store.myUrl = store.apiUrl;
 
         if (store.typePokemon !== '') {
-        myUrl = + `&eq[type1]= ${store.typePokemon}`
+        store.myUrl += `&eq[type1]=${store.typePokemon}`
         }
 
 
@@ -38,6 +38,8 @@ export default{
         store.pokemons=response.data.docs
         store.loading = false
       })
+
+  
       }
     }
 
