@@ -4,6 +4,7 @@ import axios from 'axios';
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 import AppFilterPokemon from './components/AppFilterPokemon.vue';
+import AppSearchBar from './components/AppSearchBar.vue';
 
 import {store} from './store.js';
 export default{
@@ -11,6 +12,7 @@ export default{
       AppHeader,
       AppMain,
       AppFilterPokemon,
+      AppSearchBar,
     },
     data(){
         return{
@@ -19,28 +21,40 @@ export default{
       },
     mounted(){
       this.filterPokedex();
+      this.searchPokemon();
     },
   
     methods:{
-
-      
-      filterPokedex(){ 
-
-
-        store.myUrl = store.apiUrl;
-
-        if (store.typePokemon !== '') {
-        store.myUrl += `&eq[type1]=${store.typePokemon}`
+      searchPokemon(){
+          
+          store.myUrl = store.apiUrl;
+         if(store.searchText !== ''){
+          store.myUrl += `&start[name]=${store.searchText}`;
         }
-
-
+        console.log(store.searchText);
         axios.get(store.myUrl).then((response)=>{
         store.pokemons=response.data.docs
         store.loading = false
       })
+      },
+      
+       filterPokedex(){ 
+   
+
+         store.myUrl = store.apiUrl;
+
+        if (store.typePokemon !== '') {
+        store.myUrl += `&eq[type1]=${store.typePokemon}`
+         }
+
+
+         axios.get(store.myUrl).then((response)=>{
+        store.pokemons=response.data.docs
+         store.loading = false
+      })
 
   
-      }
+       }
     }
 
   }
@@ -52,7 +66,7 @@ export default{
     <AppHeader/>
     <AppFilterPokemon @filterPokemon="filterPokedex"/>
   </div>
-  
+  <AppSearchBar @search="searchPokemon"/>
   <AppMain/>
 </div>
 </template>
