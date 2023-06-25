@@ -13,7 +13,6 @@ export default {
     },
     computed:{
         backgroundColor(){
-            console.log(this.unPokemon.type1)
             return colorMap[this.unPokemon.type1]
             
         }
@@ -21,7 +20,7 @@ export default {
 }
 </script>
 <template >
-        <div class="rounded  p-3 card_pokemon" :style="`background-color: ${backgroundColor}`">
+        <div class="rounded  p-3 card_pokemon" :style="`background-color:${backgroundColor}`">
             <img :src="unPokemon.imageUrl" alt="">
             <div>{{ unPokemon.number }}</div>
             <div class="fw-bolder">{{ unPokemon.name }}</div>
