@@ -33,6 +33,7 @@ export default {
     cursor: pointer;
     &:hover{
         filter: brightness(110%);
+        transform: scale(1.1);
     }
 }
 img{
