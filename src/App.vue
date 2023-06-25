@@ -21,7 +21,6 @@ export default{
       },
     mounted(){
       this.filterPokedex();
-      this.searchPokemon();
     },
   
     methods:{
@@ -29,9 +28,15 @@ export default{
           
           store.myUrl = store.apiUrl;
          if(store.searchText !== ''){
+          if (store.typePokemon !== '') {
+          store.myUrl += `&eq[type1]=${store.typePokemon}`
+         }
           store.myUrl += `&start[name]=${store.searchText}`;
+        }else if (store.typePokemon !== ''){
+          store.myUrl += `&eq[type1]=${store.typePokemon}`
         }
-        console.log(store.searchText);
+      
+
         axios.get(store.myUrl).then((response)=>{
         store.pokemons=response.data.docs
         store.loading = false
@@ -39,11 +44,12 @@ export default{
       },
       
        filterPokedex(){ 
-   
-
          store.myUrl = store.apiUrl;
 
         if (store.typePokemon !== '') {
+          if(store.searchText !== ''){  
+          store.myUrl += `&start[name]=${store.searchText}`;
+        }
         store.myUrl += `&eq[type1]=${store.typePokemon}`
          }
 
