@@ -1,12 +1,27 @@
 <script>
+import {colorMap} from '../index.js';
+import {store} from '../store.js';
 export default {
+    data(){
+       return{
+          colorMap,
+           store
+       }
+    },
     props:{
         unPokemon: Object
+    },
+    computed:{
+        backgroundColor(){
+            console.log(this.unPokemon.type1)
+            return colorMap[this.unPokemon.type1]
+            
+        }
     }
 }
 </script>
 <template >
-        <div class="rounded  p-3 card_pokemon" :class="unPokemon.type1 === 'Fire' ?'bg_fire': unPokemon.type1 === 'Grass' ?'bg_grass': unPokemon.type1 === 'Water' ?'bg_water' : ''" >
+        <div class="rounded  p-3 card_pokemon" :style="`background-color: ${backgroundColor}`">
             <img :src="unPokemon.imageUrl" alt="">
             <div>{{ unPokemon.number }}</div>
             <div class="fw-bolder">{{ unPokemon.name }}</div>
@@ -14,6 +29,7 @@ export default {
         </div>
 </template>
 <style lang="scss" scoped>
+@use '../styles/partials/variables'as *;
 .card_pokemon{
     cursor: pointer;
     &:hover{
@@ -26,14 +42,6 @@ img{
     height: 6rem;
 }
 
-.bg_fire{
-    background-color: rgb(250, 146, 146);
-}
-.bg_grass{
-    background: rgb(170, 245, 170);
-}
-.bg_water{
-    background-color: rgb(161, 235, 235);
-}
+
     
 </style>
